@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Conect Fácil</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#1A237E',
+              light: '#C5CAE9',
+              dark: '#000051',
+            },
+            secondary: {
+              DEFAULT: '#FFD600',
+              dark: '#c7a500',
+            },
+            accent: '#FF9800',
+            neutral: {
+              100: '#FAFAFA',
+              200: '#E5E7EB',
+              800: '#212121',
+              900: '#121212',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<script type="importmap">
+{
+  "imports": {
+    "rxjs": "https://aistudiocdn.com/rxjs@^7.8.2?conditions=es2015",
+    "rxjs/operators": "https://aistudiocdn.com/rxjs@^7.8.2/operators?conditions=es2015",
+    "rxjs/ajax": "https://aistudiocdn.com/rxjs@^7.8.2/ajax?conditions=es2015",
+    "rxjs/webSocket": "https://aistudiocdn.com/rxjs@^7.8.2/webSocket?conditions=es2015",
+    "rxjs/testing": "https://aistudiocdn.com/rxjs@^7.8.2/testing?conditions=es2015",
+    "rxjs/fetch": "https://aistudiocdn.com/rxjs@^7.8.2/fetch?conditions=es2015",
+    "@google/genai": "https://next.esm.sh/@google/genai@^1.30.0?external=rxjs",
+    "@angular/platform-browser": "https://next.esm.sh/@angular/platform-browser@^21.0.0?external=rxjs",
+    "@angular/core": "https://next.esm.sh/@angular/core@^21.0.0?external=rxjs",
+    "@angular/compiler": "https://next.esm.sh/@angular/compiler@^21.0.0?external=rxjs",
+    "@angular/router": "https://next.esm.sh/@angular/router@^21.0.0?external=rxjs",
+    "@angular/common/http": "https://next.esm.sh/@angular/common@^21.0.0/http?external=rxjs"
+  }
+}
+</script>
+</head>
+<body class="bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 antialiased duration-300 transition-colors">
+  <app-root></app-root>
+</body>
+</html>

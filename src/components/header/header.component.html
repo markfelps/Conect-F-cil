@@ -1,0 +1,85 @@
+<header class="bg-primary shadow-lg sticky top-0 z-50 text-white">
+  <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <a routerLink="/" class="flex items-center space-x-3" (click)="closeMenu()">
+        <svg class="h-10 w-10 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <span class="text-2xl font-bold">Conect Fácil</span>
+      </a>
+      
+      <div class="hidden md:flex items-center space-x-1">
+        <a routerLink="/" routerLinkActive="bg-primary-dark" [routerLinkActiveOptions]="{exact: true}" class="hover:bg-primary-dark px-3 py-2 rounded-md font-medium transition-colors">Início</a>
+        <a routerLink="/learn" routerLinkActive="bg-primary-dark" class="hover:bg-primary-dark px-3 py-2 rounded-md font-medium transition-colors">Aprenda</a>
+        <a routerLink="/quiz" routerLinkActive="bg-primary-dark" class="hover:bg-primary-dark px-3 py-2 rounded-md font-medium transition-colors">Quiz</a>
+        <a routerLink="/about" routerLinkActive="bg-primary-dark" class="hover:bg-primary-dark px-3 py-2 rounded-md font-medium transition-colors">Sobre</a>
+      </div>
+
+      <div class="flex items-center">
+        <div class="hidden md:flex items-center space-x-1 border-r border-primary-light/50 mr-2 pr-2">
+           <button (click)="decreaseFontSize()" title="Diminuir fonte" class="p-2 rounded-full hover:bg-primary-dark transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6m-4 0h2.5m11 0H20M9 6v12"></path></svg>
+          </button>
+          <button (click)="increaseFontSize()" title="Aumentar fonte" class="p-2 rounded-full hover:bg-primary-dark transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6m-4 0h2.5m11 0H20M9 6v12"></path></svg>
+          </button>
+          <button (click)="toggleDarkMode()" title="Mudar tema" class="p-2 rounded-full hover:bg-primary-dark transition-colors">
+            @if(isDarkMode()) {
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            } @else {
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            }
+          </button>
+        </div>
+
+        <div class="md:hidden">
+          <button (click)="toggleMenu()" type="button" class="inline-flex items-center justify-center p-2 rounded-md hover:bg-primary-dark focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Abrir menu</span>
+            @if (!isMenuOpen()) {
+              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            } @else {
+              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+
+    @if (isMenuOpen()) {
+      <div class="md:hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a routerLink="/" (click)="closeMenu()" routerLinkActive="bg-primary-dark" [routerLinkActiveOptions]="{exact: true}" class="hover:bg-primary-dark block px-3 py-2 rounded-md text-base font-medium transition-colors">Início</a>
+          <a routerLink="/learn" (click)="closeMenu()" routerLinkActive="bg-primary-dark" class="hover:bg-primary-dark block px-3 py-2 rounded-md text-base font-medium transition-colors">Aprenda</a>
+          <a routerLink="/quiz" (click)="closeMenu()" routerLinkActive="bg-primary-dark" class="hover:bg-primary-dark block px-3 py-2 rounded-md text-base font-medium transition-colors">Quiz</a>
+          <a routerLink="/about" (click)="closeMenu()" routerLinkActive="bg-primary-dark" class="hover:bg-primary-dark block px-3 py-2 rounded-md text-base font-medium transition-colors">Sobre</a>
+          
+          <!-- Accessibility Controls for Mobile -->
+          <div class="border-t border-primary-light/30 pt-4 mt-4">
+            <div class="flex items-center justify-between px-3">
+                <span class="font-medium text-base text-primary-light">Ajustes:</span>
+                <div class="flex items-center space-x-1">
+                    <button (click)="decreaseFontSize()" title="Diminuir fonte" class="p-2 rounded-full hover:bg-primary-dark transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6m-4 0h2.5m11 0H20M9 6v12"></path></svg>
+                    </button>
+                    <button (click)="increaseFontSize()" title="Aumentar fonte" class="p-2 rounded-full hover:bg-primary-dark transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6m-4 0h2.5m11 0H20M9 6v12"></path></svg>
+                    </button>
+                    <button (click)="toggleDarkMode()" title="Mudar tema" class="p-2 rounded-full hover:bg-primary-dark transition-colors">
+                        @if(isDarkMode()) {
+                          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        } @else {
+                          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        }
+                    </button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </nav>
+</header>

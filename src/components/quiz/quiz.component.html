@@ -1,0 +1,54 @@
+<div class="max-w-2xl mx-auto bg-white dark:bg-neutral-800 p-6 sm:p-8 rounded-lg shadow-xl">
+  @switch (quizState()) {
+    @case ('loading') {
+      <div class="text-center py-12">
+        <h2 class="text-2xl font-bold mb-4 text-primary dark:text-primary-light">Preparando o Quiz...</h2>
+        <div class="flex justify-center items-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-secondary"></div>
+        </div>
+      </div>
+    }
+    @case ('active') {
+      @if (currentQuestion(); as question) {
+        <div>
+          <div class="mb-8 text-center">
+            <p class="text-lg font-semibold text-primary dark:text-primary-light">Pergunta {{ currentQuestionIndex() + 1 }} de {{ questions().length }}</p>
+            <h2 class="text-xl sm:text-3xl font-bold mt-2 text-neutral-900 dark:text-neutral-100">{{ question.question }}</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @for (option of question.options; track option) {
+              <button 
+                (click)="selectAnswer(option)"
+                [class]="getButtonClass(option)"
+                [disabled]="!!selectedAnswer()"
+                class="w-full text-center p-6 rounded-lg border-2 border-transparent text-2xl font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark disabled:cursor-not-allowed">
+                {{ option }}
+              </button>
+            }
+          </div>
+          @if (showExplanation()) {
+            <div class="mt-8 p-4 rounded-lg" 
+                 [class]="selectedAnswer() === question.correctAnswer ? 'bg-green-100 text-green-900 dark:bg-green-900 dark:text-green-100' : 'bg-red-100 text-red-900 dark:bg-red-900 dark:text-red-100'">
+              <p class="font-bold text-xl">Explicação:</p>
+              <p class="mt-1 text-lg">{{ question.explanation }}</p>
+            </div>
+            <button (click)="nextQuestion()" class="mt-6 w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 text-xl rounded-lg transition-transform transform hover:scale-105 shadow-md">
+              {{ isLastQuestion() ? 'Ver Resultado' : 'Próxima Pergunta' }}
+            </button>
+          }
+        </div>
+      }
+    }
+    @case ('finished') {
+      <div class="text-center py-8">
+        <h2 class="text-3xl font-bold text-primary dark:text-primary-light mb-4">Teste Finalizado!</h2>
+        <p class="text-xl text-neutral-800 dark:text-neutral-200 mb-2">Sua pontuação final é:</p>
+        <p class="text-7xl font-extrabold text-secondary my-4">{{ score() }} / {{ questions().length }}</p>
+        <p class="text-lg mb-8">{{ score() > questions().length / 2 ? 'Parabéns, você está no caminho certo!' : 'Continue aprendendo para navegar com mais segurança!' }}</p>
+        <button (click)="startQuiz()" class="bg-secondary hover:bg-secondary-dark text-neutral-900 font-bold py-4 px-10 text-xl rounded-full transition-transform transform hover:scale-105 shadow-lg">
+          Jogar Novamente
+        </button>
+      </div>
+    }
+  }
+</div>
